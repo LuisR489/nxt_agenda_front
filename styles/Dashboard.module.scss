@@ -18,6 +18,10 @@
     font-size: 16px;
     margin: 0;
     cursor: pointer;
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
   }
   &__table {
     width: 100%;
