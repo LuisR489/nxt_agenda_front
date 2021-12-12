@@ -1,0 +1,1 @@
+export const PROD_URL = 'https://strpagendbackend.herokuapp.com'

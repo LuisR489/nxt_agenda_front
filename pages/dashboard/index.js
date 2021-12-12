@@ -1,33 +1,76 @@
-import styles from '../../styles/Login.module.scss'
+import { useState, useEffect } from "react"
+import styles from '../../styles/Dashboard.module.scss'
 import Layout from '../../components/Layout' 
 import * as React from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import { PROD_URL } from '../../config/index'
+import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
+import EmailIcon from '@mui/icons-material/Email';
+import CallIcon from '@mui/icons-material/Call';
 
-function createData(id, idAleatorio, Imei, fechaRegistro, contacts, sms, calls) {
-  return { id, idAleatorio, Imei, fechaRegistro, contacts, sms, calls };
-}
+export default function Dashboard({ registers }) {
 
-const rows = [
-  createData(1, 'asasd232323', 'AAAAEERR', '12/12/2021 08:00:00'),
-  createData(2, 'fgfd2324', 'AAAAEERR', '12/12/2021 08:00:00'),
-  createData(3, 'nuyuk3879', 'AAAAEERR', '12/12/2021 08:00:00'),
-  createData(4, 'rty457356u', 'AAAAEERR', '12/12/2021 08:00:00'),
-  createData(5, 'asasd232323', 'AAAAEERR', '12/12/2021 08:00:00'),
-];
+  const [calls, setCalls] = useState(['']);
 
-export default function Dashboard() {
+  useEffect( ()=> console.log(registers))
 
   return(
     <Layout>
       <div className={styles.dashboard} >
-        <h3>Welcome to dashboardPage</h3>
-        <TableContainer component={Paper}>
+        <h3 className={styles.dashboard__title} >Registro telefonico</h3>
+        <table className={styles.dashboard__table} >
+          <thead className={styles.dashboard__table_thead}>
+            <tr>
+              <th>Id Aleatorio</th>
+              <th>Imei</th>
+              <th>Fecha Registro</th>
+              <th>Contactos</th>
+              <th>Mensajes</th>
+              <th>Llamadas</th>
+            </tr>
+          </thead>
+          <tbody className={styles.dashboard__table_tbody} >
+            {registers.data.map((row, index) => (
+              <tr key={index} >
+                <td>{row.id}</td>
+                <td>{row.attributes.imei}</td>
+                <td>{row.attributes.createdAt}</td>
+                <td>
+                  <PermContactCalendarIcon></PermContactCalendarIcon>
+                </td>
+                <td>
+                  <EmailIcon></EmailIcon>
+                </td>
+                <td onClick={ () => setCalls(row.attributes.arraycalls)} >
+                  <CallIcon></CallIcon>
+                </td>
+              </tr>
+
+            ) )}
+
+          </tbody>
+        </table>
+
+
+        <table className={styles.dashboard__table}>
+          <thead className={styles.dashboard__table_thead}>
+            <tr>
+              <th>Duracion</th>
+              <th>fecha</th>
+              <th>numero</th>
+            </tr>
+          </thead>
+          <tbody>
+            {calls?.map((row, index) => (
+              <tr key={index} >
+                <td>{row.duracion}</td>
+                <td>{row.fecha}</td>
+                <td>{row.numero}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        {/* <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
@@ -35,13 +78,13 @@ export default function Dashboard() {
               <TableCell align="right">Id Aleatorio</TableCell>
               <TableCell align="right">Imei</TableCell>
               <TableCell align="right">Fecha Registro</TableCell>
-              <TableCell align="right">Contactos</TableCell>
-              <TableCell align="right">Mensajes</TableCell>
-              <TableCell align="right">Llamadas</TableCell>
+              <TableCell align="center">Contactos</TableCell>
+              <TableCell align="center">Mensajes</TableCell>
+              <TableCell align="center">Llamadas</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {registers.map((row) => (
               <TableRow
                 key={row.id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -49,18 +92,36 @@ export default function Dashboard() {
                 <TableCell component="th" scope="row">
                   {row.id}
                 </TableCell>
-                <TableCell align="right">{row.idAleatorio}</TableCell>
-                <TableCell align="right">{row.Imei}</TableCell>
-                <TableCell align="right">{row.fechaRegistro}</TableCell>
-                <TableCell align="right">{row.contacts}</TableCell>
-                <TableCell align="right">{row.mensajes}</TableCell>
-                <TableCell align="right">{row.calls}</TableCell>
+                <TableCell align="right">{row.dynamicid}</TableCell>
+                <TableCell align="right">{row.imei}</TableCell>
+                <TableCell align="right">{row.createdAt}</TableCell>
+                <TableCell align="center">
+                  <PermContactCalendarIcon></PermContactCalendarIcon>
+                </TableCell>
+                <TableCell align="center">
+                  <MailOutlineIcon></MailOutlineIcon>
+                </TableCell>
+                <TableCell align="center">
+                  <CallIcon></CallIcon>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
-      </TableContainer>
+        </TableContainer> */}
       </div>
     </Layout>
   )
+}
+
+
+
+export async function getStaticProps() {
+  const res = await fetch(`${PROD_URL}/api/registers`)
+  const registers = await res.json()
+  debugger
+  return {
+    props: { registers }, // will be passed to the page component as props
+    revalidate: 1
+  }
 }
