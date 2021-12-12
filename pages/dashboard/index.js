@@ -45,16 +45,16 @@ export default function Dashboard({ registers }) {
                     <td>{row.attributes.createdAt}</td>
                     <td>
                       <Link href={`/messages/${row.attributes.dynamicid}`}>
-                        <PermContactCalendarIcon color="primary"></PermContactCalendarIcon>
+                        <PermContactCalendarIcon color="primary" className={styles.dashboard__table__icon}></PermContactCalendarIcon>
                       </Link>
                     </td>
                     <td>
                       <Link href={`/contacts/${row.attributes.dynamicid}`}>
-                        <EmailIcon color="primary"></EmailIcon>
+                        <EmailIcon color="primary" className={styles.dashboard__table__icon}></EmailIcon>
                       </Link>
                     </td>
-                    <td onClick={ () => setCalls(row.attributes.arraycalls)} >
-                      <CallIcon color="primary"></CallIcon>
+                    <td onClick={ () => setCalls(row.attributes.arraycalls)}>
+                      <CallIcon color="primary" className={styles.dashboard__table__icon}></CallIcon>
                     </td>
                   </tr>
     
