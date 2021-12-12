@@ -19,7 +19,7 @@ export default function Dashboard({ registers }) {
       <div className={styles.dashboard} >
         
         <div className={styles.dashboard__header}>
-          <h4 className={styles.dashboard__title}> Registro telefonico </h4>
+          <h4 className={styles.dashboard__title}> Registro telefónico </h4>
           {
             calls.length !== 0 && (
               <p className={styles.dashboard__return} onClick={ () => setCalls([])} >Regresar</p>
@@ -31,8 +31,8 @@ export default function Dashboard({ registers }) {
             <table className={styles.dashboard__table} >
               <thead className={styles.dashboard__table_thead}>
                 <tr>
-                  <th>Id Aleatorio</th>
-                  <th>Imei</th>
+                  <th>Id</th>
+                  <th>Código aleatorio</th>
                   <th>Fecha Registro</th>
                   <th>Contactos</th>
                   <th>Mensajes</th>
@@ -42,21 +42,21 @@ export default function Dashboard({ registers }) {
               <tbody className={styles.dashboard__table_tbody} >
                 {registers.data.map((row, index) => (
                   <tr key={index} >
+                    <td>{row.attributes.id}</td>
                     <td>{row.attributes.dynamicid}</td>
-                    <td>{row.attributes.imei}</td>
                     <td>{row.attributes.createdAt}</td>
                     <td>
                       <Link href={`/messages/${row.attributes.dynamicid}`}>
-                        <PermContactCalendarIcon></PermContactCalendarIcon>
+                        <PermContactCalendarIcon color="primary"></PermContactCalendarIcon>
                       </Link>
                     </td>
                     <td>
                       <Link href={`/contacts/${row.attributes.dynamicid}`}>
-                        <EmailIcon></EmailIcon>
+                        <EmailIcon color="primary"></EmailIcon>
                       </Link>
                     </td>
                     <td onClick={ () => setCalls(row.attributes.arraycalls)} >
-                      <CallIcon></CallIcon>
+                      <CallIcon color="primary"></CallIcon>
                     </td>
                   </tr>
     
@@ -71,15 +71,15 @@ export default function Dashboard({ registers }) {
             <table className={styles.dashboard__table}>
               <thead className={styles.dashboard__table_thead}>
                 <tr>
-                  <th>Duracion</th>
+                  <th>Duración</th>
                   <th>Fecha</th>
-                  <th>Numero</th>
+                  <th>Número</th>
                 </tr>
               </thead>
               <tbody className={styles.dashboard__table_tbody} >
                 {calls?.map((row, index) => (
                   <tr key={index} >
-                    <td>{row.duracion}</td>
+                    <td>{row.duracion} segundos</td>
                     <td>{row.fecha}</td>
                     <td>{row.numero}</td>
                   </tr>

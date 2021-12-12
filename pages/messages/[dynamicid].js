@@ -14,7 +14,7 @@ export default function Messages({data}) {
           <thead className={styles.dashboard__table_thead}>
             <tr>
               <th>Nombre</th>
-              <th>Numero</th>
+              <th>Número</th>
             </tr>
           </thead>
           <tbody className={styles.dashboard__table_tbody} >

@@ -14,7 +14,7 @@ export default function Contacts({data}) {
           <thead className={styles.dashboard__table_thead}>
             <tr>
               <th>Fecha</th>
-              <th>Numero</th>
+              <th>Número</th>
               <th>Mensaje</th>
             </tr>
           </thead>
