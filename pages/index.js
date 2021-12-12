@@ -1,17 +1,28 @@
 import { useState } from 'react'
 import Head from 'next/head'
 import styles from '../styles/Login.module.scss'
-import Link from "next/link"
+import { useRouter } from 'next/router'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Home() {
 
-  const [email, setEmail] = useState('')
+  const [user, setUser] = useState('')
   const [password, setPassword] = useState('')
+
+  const router = useRouter()
 
   const handleSubmit = e => {
     e.preventDefault()
-    console.log({ email, password })
-    // login({document , password})
+    console.log({ user, password })
+    
+    if(user === 'admin' && password === 'P@ssw0rd') {
+      router.push('/dashboard')
+    } else {
+      
+      toast.error('Datos incorrectos')
+    }
+
   }
 
   return (
@@ -22,7 +33,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
         <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet" />
       </Head>
-
+      <ToastContainer />
       <div className={styles.home} >
         <img className={styles.home__img_wave} src='/images/wave.png' />
         <img className={styles.home__img_person} src='/images/bg.svg' />
@@ -32,13 +43,13 @@ export default function Home() {
           </figure>
           <h3 className={styles.home__title} >Welcome</h3>
           <div className={styles.home__input}>
-            <label>Correo Electronico</label>
+            <label>Nombre de Usuario</label>
             <input
-                placeholder='Email'
-                type='email' 
-                id='email' 
-                value={email} 
-                onChange= { e => setEmail(e.target.value) } />
+                placeholder='Usuario'
+                type='text' 
+                id='user' 
+                value={user} 
+                onChange= { e => setUser(e.target.value) } />
           </div>
           <div className={styles.home__input}>
             <label>Contraseña</label>
@@ -56,9 +67,6 @@ export default function Home() {
               value='Ingresar' />
           </div>
         </form>
-        <Link href='/dashboard' >
-          <a>Login</a>
-        </Link>
       </div>
 
     </div>
