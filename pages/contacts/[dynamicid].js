@@ -1,5 +1,6 @@
 import Layout from '../../components/Layout' 
 import styles from '../../styles/Dashboard.module.scss'
+import { PROD_URL } from '../../config/index'
 
 export default function Contacts({data}) {
 
