@@ -6,12 +6,13 @@ import { PROD_URL } from '../../config/index'
 import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
 import EmailIcon from '@mui/icons-material/Email';
 import CallIcon from '@mui/icons-material/Call';
+import Link from 'next/link'
 
 export default function Dashboard({ registers }) {
 
   const [calls, setCalls] = useState([]);
 
-  useEffect( ()=> console.log(calls.length))
+  useEffect( ()=> console.log(registers))
 
   return(
     <Layout>
@@ -41,14 +42,18 @@ export default function Dashboard({ registers }) {
               <tbody className={styles.dashboard__table_tbody} >
                 {registers.data.map((row, index) => (
                   <tr key={index} >
-                    <td>{row.id}</td>
+                    <td>{row.attributes.dynamicid}</td>
                     <td>{row.attributes.imei}</td>
                     <td>{row.attributes.createdAt}</td>
                     <td>
-                      <PermContactCalendarIcon></PermContactCalendarIcon>
+                      <Link href={`/messages/${row.attributes.dynamicid}`}>
+                        <PermContactCalendarIcon></PermContactCalendarIcon>
+                      </Link>
                     </td>
                     <td>
-                      <EmailIcon></EmailIcon>
+                      <Link href={`/contacts/${row.attributes.dynamicid}`}>
+                        <EmailIcon></EmailIcon>
+                      </Link>
                     </td>
                     <td onClick={ () => setCalls(row.attributes.arraycalls)} >
                       <CallIcon></CallIcon>
@@ -95,7 +100,7 @@ export default function Dashboard({ registers }) {
 export async function getStaticProps() {
   const res = await fetch(`${PROD_URL}/api/registers`)
   const registers = await res.json()
-  debugger
+
   return {
     props: { registers }, // will be passed to the page component as props
     revalidate: 1
