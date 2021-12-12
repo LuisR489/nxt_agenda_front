@@ -1,0 +1,16 @@
+.layout{
+  display: flex;
+  flex-direction: column;
+  &__nav {
+    height: 60px;
+    background: #2dc892;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+
+  }
+  &__title {
+    font-size: 40px;
+    margin: 0;
+  }
+}
