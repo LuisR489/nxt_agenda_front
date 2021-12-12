@@ -12,8 +12,6 @@ export default function Dashboard({ registers }) {
 
   const [calls, setCalls] = useState([]);
 
-  useEffect( ()=> console.log(registers))
-
   return(
     <Layout>
       <div className={styles.dashboard} >
@@ -42,7 +40,7 @@ export default function Dashboard({ registers }) {
               <tbody className={styles.dashboard__table_tbody} >
                 {registers.data.map((row, index) => (
                   <tr key={index} >
-                    <td>{row.attributes.id}</td>
+                    <td>{row.id}</td>
                     <td>{row.attributes.dynamicid}</td>
                     <td>{row.attributes.createdAt}</td>
                     <td>
