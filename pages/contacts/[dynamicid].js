@@ -1,6 +1,7 @@
 import Layout from '../../components/Layout' 
 import styles from '../../styles/Dashboard.module.scss'
 import { PROD_URL } from '../../config/index'
+import Link from 'next/link'
 
 export default function Contacts({data}) {
 
@@ -9,6 +10,11 @@ export default function Contacts({data}) {
        <div className={styles.dashboard} >
         <div className={styles.dashboard__header}>
           <h4 className={styles.dashboard__title}> Mensajes </h4>
+          <div className={styles.dashboard__return}>
+            <Link href={`/dashboard`}>
+              Regresar
+            </Link>
+          </div>
         </div>
         <table className={styles.dashboard__table} >
           <thead className={styles.dashboard__table_thead}>
