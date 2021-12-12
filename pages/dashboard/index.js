@@ -19,7 +19,11 @@ export default function Dashboard({ registers }) {
         
         <div className={styles.dashboard__header}>
           <h4 className={styles.dashboard__title}> Registro telefonico </h4>
-          <p className={styles.dashboard__return} onClick={ () => setCalls([])} >Regresar</p>
+          {
+            calls.length !== 0 && (
+              <p className={styles.dashboard__return} onClick={ () => setCalls([])} >Regresar</p>
+            )
+          }
         </div>
         {
           calls.length === 0 && (
