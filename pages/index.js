@@ -1,28 +1,20 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import Head from 'next/head'
 import styles from '../styles/Login.module.scss'
-import { useRouter } from 'next/router'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AuthContext from '../context/AuthContext'; 
 
 export default function Home() {
 
-  const [user, setUser] = useState('')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const router = useRouter()
+  const { login } = useContext(AuthContext)
 
   const handleSubmit = e => {
     e.preventDefault()
-    console.log({ user, password })
-    
-    if(user === 'admin' && password === 'P@ssw0rd') {
-      router.push('/dashboard')
-    } else {
-      
-      toast.error('Datos incorrectos')
-    }
-
+    login({ email, password })
   }
 
   return (
@@ -45,11 +37,11 @@ export default function Home() {
           <div className={styles.home__input}>
             <label>Nombre de Usuario</label>
             <input
-                placeholder='Usuario'
-                type='text' 
-                id='user' 
-                value={user} 
-                onChange= { e => setUser(e.target.value) } />
+                placeholder='Correo'
+                type='email' 
+                id='email' 
+                value={email} 
+                onChange= { e => setEmail(e.target.value) } />
           </div>
           <div className={styles.home__input}>
             <label>Contraseña</label>

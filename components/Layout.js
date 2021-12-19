@@ -1,7 +1,9 @@
 import styles from '../styles/components/Layout.module.scss'
 import Link from "next/link"
 
+
 export default function Layout({children}) {
+
   return (
     <div className={styles.layout}  >
       <div className={styles.layout__header} >

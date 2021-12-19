@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import styles from '../../styles/Dashboard.module.scss'
 import Layout from '../../components/Layout' 
 import * as React from 'react';
@@ -7,10 +7,18 @@ import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
 import EmailIcon from '@mui/icons-material/Email';
 import CallIcon from '@mui/icons-material/Call';
 import Link from 'next/link'
+import AuthContext from '../../context/AuthContext'
+import { useRouter } from 'next/router'
+
 
 export default function Dashboard({ registers }) {
 
+  const { user } = useContext(AuthContext)
   const [calls, setCalls] = useState([]);
+
+  const router = useRouter()
+
+  useEffect(() => !user ? router.push('/') : null , [])
 
   return(
     <Layout>
@@ -44,12 +52,12 @@ export default function Dashboard({ registers }) {
                     <td>{row.attributes.dynamicid}</td>
                     <td>{row.attributes.createdAt}</td>
                     <td>
-                      <Link href={`/messages/${row.attributes.dynamicid}`}>
+                      <Link href={`/contacts/${row.attributes.dynamicid}`}>
                         <PermContactCalendarIcon color="primary" className={styles.dashboard__table__icon}></PermContactCalendarIcon>
                       </Link>
                     </td>
                     <td>
-                      <Link href={`/contacts/${row.attributes.dynamicid}`}>
+                      <Link href={`/messages/${row.attributes.dynamicid}`}>
                         <EmailIcon color="primary" className={styles.dashboard__table__icon}></EmailIcon>
                       </Link>
                     </td>
@@ -64,7 +72,7 @@ export default function Dashboard({ registers }) {
             </table>
           )
         }
-       
+
         { calls.length !== 0 && (
             <table className={styles.dashboard__table}>
               <thead className={styles.dashboard__table_thead}>
