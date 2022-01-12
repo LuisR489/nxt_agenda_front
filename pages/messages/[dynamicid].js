@@ -51,6 +51,7 @@ export default function Contacts({data}) {
             <tr>
               <th>Fecha</th>
               <th>Número</th>
+              <th>Tipo</th>
               <th>Mensaje</th>
             </tr>
           </thead>
@@ -62,6 +63,7 @@ export default function Contacts({data}) {
                   <tr key={index} >
                     <td>{row.fecha}</td>
                     <td>{row.numero}</td>
+                    <td>{row.type}</td>
                     <td>{row.mensaje}</td>
                   </tr>
 
@@ -75,6 +77,7 @@ export default function Contacts({data}) {
                   <tr key={index} >
                     <td>{row.fecha}</td>
                     <td>{row.numero}</td>
+                    <td>{row.type}</td>
                     <td>{row.mensaje}</td>
                   </tr>
 
