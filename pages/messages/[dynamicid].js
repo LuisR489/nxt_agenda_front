@@ -43,7 +43,7 @@ export default function Contacts({data}) {
             type='text' 
             placeholder="Buscar" />
           {
-            searchData && <button onClick={() => setSearchData(null)} >Limpiar</button>
+            searchData && <button className={styles.dashboard__button_search} onClick={() => setSearchData(null)} >Limpiar</button>
           }
         </form>
         <table className={styles.dashboard__table} >

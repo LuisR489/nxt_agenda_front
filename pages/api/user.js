@@ -1,11 +1,11 @@
 // import cookie from  'cookie'
-import {API_URL} from '../../config'
+import {PROD_URL} from '../../config'
 
 export default async ( req , res ) => {
   if(req.method === 'GET') {
   
 
-   const strapiRes = await fetch(`${API_URL}/users/me`, {
+   const strapiRes = await fetch(`${PROD_URL}/users/me`, {
      method : 'GET',
      headers: {
        'Authorization' : `Bearer ${token}`
